@@ -4,8 +4,10 @@ import gzip
 import datetime
 from tzlocal import get_localzone
 import re
+import getpass
 
 FB_URL = "https://us-central1-bubblebird-5940d.cloudfunctions.net"
+
 
 def main():
     print("-------- WELCOME TO FIREBASE ----------")
@@ -21,6 +23,7 @@ def main():
         'scientificName': scientific,
         'commonName': common,
         'confidence': confidence,
+        'user': getpass.getuser(),
     }
 
     soundscape_id = upload_soundscape(mp3_fpath, current_iso8601)
