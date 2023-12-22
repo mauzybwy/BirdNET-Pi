@@ -16,6 +16,9 @@ TMPFILE=$(mktemp)
 #SCAN_DIRS are all directories marked "Analyzed"
 SCAN_DIRS=($(find $RECS_DIR -type d -name '*Analyzed' 2>/dev/null | sort ))
 
+PYTHON_VIRTUAL_ENV="$HOME/BirdNET-Pi/birdnet/bin/python3"
+DIR="$HOME/BirdNET-Pi/scripts"
+
 for h in "${SCAN_DIRS[@]}";do
   # The TMPFILE is created from each .csv file BirdNET creates
   # within each "Analyzed" directory
@@ -134,6 +137,8 @@ for h in "${SCAN_DIRS[@]}";do
         -c "${NEWSPECIES_BYDATE//$HOME\/}/${NEWFILE}" \
         -o "${NEWSPECIES_BYDATE}/${NEWFILE}.png"
     fi
+
+    $PYTHON_VIRTUAL_ENV $DIR/firebase_upload.py "${DATE}" "${START}" "${END}" "${COMMON_NAME}" "${SCIENTIFIC_NAME}" "${CONFIDENCE}" "${NEWSPECIES_BYDATE}/${NEWFILE}" "${NEWSPECIES_BYDATE}/${NEWFILE}.png"
     
   done < "${TMPFILE}"
   

@@ -35,9 +35,9 @@ function update() {
   <form action="" method="GET">
     <button type="submit" name="submit" value="sudo reboot" onclick="return confirm('Are you sure you want to reboot?')">Reboot</button>
   </form>
-  <form action="" method="GET">
-    <button type="submit" name="submit" id="updatebtn" value="update_birdnet.sh" onclick="update();">Update <?php if(isset($_SESSION['behind']) && $_SESSION['behind'] != "0" && $_SESSION['behind'] != "with"){?><div class="updatenumber"><?php echo $_SESSION['behind']; ?></div><?php } ?></button>
-  </form>
+  <!-- <form action="" method="GET">
+       <button type="submit" name="submit" id="updatebtn" value="update_birdnet.sh" onclick="update();">Update <?php if(isset($_SESSION['behind']) && $_SESSION['behind'] != "0" && $_SESSION['behind'] != "with"){?><div class="updatenumber"><?php echo $_SESSION['behind']; ?></div><?php } ?></button>
+       </form> -->
   <form action="" method="GET">
     <button type="submit" name="submit" value="sudo shutdown now" onclick="return confirm('Are you sure you want to shutdown?')">Shutdown</button>
   </form>
