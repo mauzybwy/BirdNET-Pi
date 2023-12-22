@@ -5,8 +5,7 @@ import datetime
 from tzlocal import get_localzone
 import re
 
-FB_URL = "http://192.168.1.156:5001/bubblebird-5940d/us-central1"
-
+FB_URL = "https://us-central1-bubblebird-5940d.cloudfunctions.net"
 
 def main():
     print("-------- WELCOME TO FIREBASE ----------")
