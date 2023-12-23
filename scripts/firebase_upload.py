@@ -18,12 +18,13 @@ def main():
 
     data = {
         'timestamp': current_iso8601,
-        'soundscapeStartTime': start,
-        'soundscapeEndTime': end,
-        'scientificName': scientific,
-        'commonName': common,
+        'soundscape_start_time': start,
+        'soundscape_end_time': end,
+        'scientific_name': scientific,
+        'common_name': common,
         'confidence': confidence,
         'user': getpass.getuser(),
+        'flickr_url': calc_flickr_url(common),
     }
 
     soundscape_id = upload_soundscape(mp3_fpath, current_iso8601)
@@ -131,5 +132,27 @@ def upload_metadata(metadata):
         print("Error on metadata POST", err)
 
 
+def calc_flickr_url(comName):
+    try:
+        headers = {'User-Agent': 'Python_Flickr/1.0'}
+        key = "f6d99abe7ff7b74ce1118cba04605151"
+        url = 'https://www.flickr.com/services/rest/?method=flickr.photos.search&api_key=' + key + '&text='+str(comName)+' bird&sort=relevance&per_page=5&media=photos&format=json&license=2%2C3%2C4%2C5%2C6%2C9&nojsoncallback=1'
+        resp = requests.get(url=url, headers=headers)
+
+        resp.encoding = "utf-8"
+        data = resp.json()["photos"]["photo"][0]
+
+        image_url = "https://farm{}.static.flickr.com/{}/{}_{}_n.jpg".format(
+            str(data["farm"]),
+            str(data["server"]),
+            str(data["id"]),
+            str(data["secret"])
+        )
+        return image_url
+    except Exception as e:
+        print("FLICKR API ERROR: "+str(e))
+        image_url = ""
+
+        
 if __name__ == "__main__":
     main()
